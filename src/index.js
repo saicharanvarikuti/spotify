@@ -1,7 +1,7 @@
-import { configDotenv } from 'dotenv'
+const express = require('express')
+require('dotenv').config()
 const mongoose = require('mongoose')
-
-configDotenv()
+const trackAdviceRoutes = require('./routes/trackAdviceRoutes')
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -11,6 +11,7 @@ mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopo
     .catch((err)=> console.error('Error connecting to Database' ,err))
 
 app.use(express.json())
+app.use('/api',trackAdviceRoutes)
 
 app.use((err, req, res, next)=>{
     console.error(err.stack)

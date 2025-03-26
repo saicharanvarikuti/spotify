@@ -9,11 +9,11 @@ router.get('/user/:user_id/track-advice', async(req, res)=>{
     try {
         const accessToken = ''
         const track = await fetchTopTrackApi(accessToken)
-        const advice = await fetchAdviceSlipApi(track.name)
+        const adviceText = await fetchAdviceSlipApi(track.name)
         const trackAdvice = new trackAdviceModel({
             user_id,
             track,
-            advice
+            advice:{advice: adviceText}
         })
         await trackAdvice.save()
         res.json(trackAdvice)
